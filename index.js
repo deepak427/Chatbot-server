@@ -29,7 +29,7 @@ app.use('/auth', authRoutes);
 const PORT = process.env.PORT || 5555;
 
 const DATABASE_URL =  process.env.CONNECTION_URL;
-console.log(process.env.CONNECTION_URL)
+console.log(123456)
 
 mongoose
   .connect(DATABASE_URL)
