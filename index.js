@@ -8,12 +8,13 @@ import llamaRoutes from './routes/llama2.js'
 import videoRoutes from './routes/video.js'
 import authRoutes from './routes/auth.js'
 
+
+console.log(123456)
+
 mongoose.set("strictQuery", true);
 
 const app = express();
 dotenv.config();
-
-console.log(123456)
 
 app.use(express.json({ limit: "300mb", extended: true }));
 app.use(express.urlencoded({ limit: "300mb", extended: true }));
