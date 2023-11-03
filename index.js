@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 
 import llamaRoutes from './routes/llama2.js'
 import videoRoutes from './routes/video.js'
+import authRoutes from './routes/auth.js'
 
 mongoose.set("strictQuery", true);
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use('/llama', llamaRoutes);
 app.use('/video', videoRoutes);
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 5555;
 
