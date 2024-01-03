@@ -2,8 +2,6 @@ import { ClarifaiStub, grpc } from "clarifai-nodejs-grpc";
 import dotenv from "dotenv";
 dotenv.config();
 
-// hello
-
 const PAT = process.env.PAT;
 
 const USER_ID = "meta";
