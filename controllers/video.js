@@ -4,7 +4,7 @@ import { GetVideoHyegen, uploadHyegenVideo } from "./GethyegenVideo.js";
 export const addVideoId = async (req, res) => {
   const { title, speech } = req.body;
   try {
-    await uploadHyegenVideo();
+    uploadHyegenVideo();
 
     const newId = await videoIds.create({
       title,
