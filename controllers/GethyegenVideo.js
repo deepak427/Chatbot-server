@@ -1,7 +1,11 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import twilio from "twilio";
 
 dotenv.config();
+
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
 
 const API = axios.create();
 
@@ -25,30 +29,18 @@ export const GetVideoHyegen = async (videoId) => {
   }
 };
 
-export const uploadHyegenVideo = async (speech) => {
-  const requestData = {
-    video_inputs: [
-      {
-        character: {
-          type: "avatar",
-          avatar_id: "7f2ff78b142449538062761366349391",
-          avatar_style: "normal",
-        },
-        voice: {
-          type: "text",
-          input_text: speech,
-          voice_id: "f9e7834ed916486496181a5faed9800d",
-        },
-      },
-    ],
-    test: true,
-    aspect_ratio: "16:9",
-  };
+export const uploadHyegenVideo = async () => {
+  const client = twilio(accountSid, authToken);
   try {
-    return API.post(
-      "https://api.heygen.com/v2/video/generate",
-      requestData
-    );
+    client.messages
+      .create({
+        body: "It's time to upload the video.",
+        from: "+12059735918",
+        to: "+916398317883",
+      })
+      .then(() => {
+        return;
+      });
   } catch (error) {
     console.log(error.message);
   }
