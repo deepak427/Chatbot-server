@@ -24,19 +24,17 @@ export const getVideoIds = async (req, res) => {
     for (let i = 0; i < getAllIds.length; i++) {
       if (getAllIds[i].status === 1) {
         const videoInfo = await GetVideoHyegen(getAllIds[i].videoId);
-        allVideosDetails.push([
-          videoInfo.data.data,
-          getAllIds[i].title,
-        ]);
-      } else {
+        allVideosDetails.push([videoInfo.data.data, getAllIds[i].title]);
+      } else if (getAllIds[i].status === 0) {
         allVideosDetails.push([
           {
             status: "",
             video_url: "",
-            thumbnail_url: ""
+            thumbnail_url: "",
           },
           getAllIds[i].title,
         ]);
+      } else {
       }
     }
     res.status(200).json(allVideosDetails);
