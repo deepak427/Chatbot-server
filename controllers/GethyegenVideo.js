@@ -29,7 +29,7 @@ export const GetVideoHyegen = async (videoId) => {
   }
 };
 
-export const uploadHyegenVideo = () => {
+export const uploadHyegenVideo =  () => {
   const client = twilio(accountSid, authToken);
   try {
     client.messages
@@ -39,15 +39,7 @@ export const uploadHyegenVideo = () => {
         to: "+916398317883",
       })
       .then(() => {
-        client.messages
-        .create({
-          body: "It's time to upload the video.",
-          from: "+12059735918",
-          to: "+918630947464",
-        })
-        .then(() => {
-          return;
-        });
+        return;
       });
   } catch (error) {
     console.log(error.message);
