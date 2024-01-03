@@ -31,13 +31,13 @@ export const uploadHyegenVideo = async (speech) => {
       {
         character: {
           type: "avatar",
-          avatar_id: "8491e2f25ea0402ebb3a7a2eb94d1b3a",
+          avatar_id: "7f2ff78b142449538062761366349391",
           avatar_style: "normal",
         },
         voice: {
           type: "text",
           input_text: speech,
-          voice_id: "ce282f0529824d2badf57a168817fc1e",
+          voice_id: "f9e7834ed916486496181a5faed9800d",
         },
       },
     ],
