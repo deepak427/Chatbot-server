@@ -41,6 +41,7 @@ export const uploadHyegenVideo = async (speech) => {
         },
       },
     ],
+    test: true,
     aspect_ratio: "16:9",
   };
   try {
