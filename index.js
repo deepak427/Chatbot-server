@@ -30,6 +30,8 @@ const PORT = process.env.PORT || 5555;
 
 const DATABASE_URL =  process.env.CONNECTION_URL;
 
+console.log(process.env.API_KEY)
+
 mongoose
   .connect(DATABASE_URL)
   .then(() =>
