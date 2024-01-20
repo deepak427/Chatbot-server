@@ -1,10 +1,11 @@
 import videoIds from "../models/videoIds.js";
 import { GetVideoHyegen, uploadHyegenVideo } from "./GethyegenVideo.js";
+import { automatedVideoId } from "./automatedVideoId.js";
 
 export const addVideoId = async (req, res) => {
   const { title, speech } = req.body;
   try {
-    uploadHyegenVideo();
+    uploadHyegenVideo(title, speech);
 
     const newId = await videoIds.create({
       title,
@@ -21,9 +22,11 @@ export const getVideoIds = async (req, res) => {
   try {
     const getAllIds = await videoIds.find();
     var allVideosDetails = [];
+    const videoIdsList = await automatedVideoId(2);
+    console.log(videoIdsList)
     for (let i = 0; i < getAllIds.length; i++) {
       if (getAllIds[i].status === 1) {
-        const videoInfo = await GetVideoHyegen(getAllIds[i].videoId);
+        const videoInfo = await GetVideoHyegen(videoIdsList[i].videoId);
         allVideosDetails.push([videoInfo.data.data, getAllIds[i].title, getAllIds[i].videoId]);
       } else if (getAllIds[i].status === 0) {
         allVideosDetails.push([

@@ -1,6 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import twilio from "twilio";
+import { runUploading } from "./automatedUploading.js";
 
 dotenv.config();
 
@@ -30,17 +31,8 @@ export const GetVideoHyegen = async (videoId) => {
 };
 
 export const uploadHyegenVideo =  () => {
-  const client = twilio(accountSid, authToken);
   try {
-    client.messages
-      .create({
-        body: "It's time to upload the video.",
-        from: "+12059735918",
-        to: "+916398317883",
-      })
-      .then(() => {
-        return;
-      });
+    runUploading();
   } catch (error) {
     console.log(error.message);
   }
