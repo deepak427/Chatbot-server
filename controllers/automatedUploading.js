@@ -31,7 +31,7 @@ export const runUploading = (title, speech) => {
         await page.waitForSelector(".css-iak95n"),
       ]);
 
-      await page.type("#username", process.env.USER_NAME_HEYGEN );
+      await page.type("#username", process.env.USER_NAME_HEYGEN);
       await page.type("#password", process.env.PASSWORD_HEYGEN);
 
       await page.evaluate(() => {
@@ -44,9 +44,16 @@ export const runUploading = (title, speech) => {
       });
 
       await page.waitForSelector(".css-wku58s");
-      await page.evaluate(() => {
-        document.querySelector(".css-wku58s").click();
-      });
+
+      const elements = await page.$$(".css-wku58s");
+
+      if (elements.length > 0) {
+        const randomIndex = Math.floor(Math.random() * elements.length);
+
+        await elements[randomIndex].click();
+      } else {
+        console.log("No elements found with the specified selector.");
+      }
 
       await Promise.all([
         await page.waitForSelector(
