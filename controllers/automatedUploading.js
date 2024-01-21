@@ -1,11 +1,10 @@
-import puppeteer from "puppeteer";
+import { executablePath, launch } from "puppeteer";
 import dotenv from "dotenv";
 
 dotenv.config();
 export const runUploading = (title, speech) => {
   return new Promise(async (resolve, reject) => {
-    const browser = await puppeteer.launch({
-      headless: "new",
+    const browser = await launch({
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
@@ -15,7 +14,7 @@ export const runUploading = (title, speech) => {
       executablePath:
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
-          : puppeteer.executablePath(),
+          : executablePath(),
     });
     const page = await browser.newPage();
     try {
