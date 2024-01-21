@@ -9,7 +9,7 @@ export const addVideoId = async (req, res) => {
     const newId = await videoIds.create({
       title,
       speech,
-      videoId
+      videoId,
     });
 
     res.status(200).json({ result: newId });
@@ -25,15 +25,10 @@ export const getVideoIds = async (req, res) => {
     for (let i = 0; i < getAllIds.length; i++) {
       if (getAllIds[i].status === 1) {
         const videoInfo = await GetVideoHyegen(getAllIds[i].videoId);
-        allVideosDetails.push([videoInfo.data.data, getAllIds[i].title, getAllIds[i].videoId]);
-      } else if (getAllIds[i].status === 0) {
         allVideosDetails.push([
-          {
-            status: "",
-            video_url: "",
-            thumbnail_url: "",
-          },
+          videoInfo.data.data,
           getAllIds[i].title,
+          getAllIds[i].videoId,
         ]);
       } else {
       }
@@ -57,7 +52,7 @@ export const hideVideo = async (req, res) => {
       return res.status(404).json({ error: "Video not found" });
     }
 
-    return res.json({message: "Successful"});
+    return res.json({ message: "Successful" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
