@@ -16,12 +16,13 @@ export const runUploading = (title, speech) => {
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : executablePath(),
       protocolTimeout: 36000000,
+      timeout: 36000000
     });
     const page = await browser.newPage();
     try {
       await page.setViewport({
-        width: 1366,
-        height: 768,
+        width: 1920,
+        height: 1080,
       });
 
       await page.goto("https://app.heygen.com/");
