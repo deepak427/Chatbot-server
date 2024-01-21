@@ -31,8 +31,8 @@ export const runUploading = (title, speech) => {
         await page.waitForSelector(".css-iak95n"),
       ]);
 
-      await page.type("#username", "uttarakhandrajbhawan@gmail.com");
-      await page.type("#password", "123Chatbot45@!");
+      await page.type("#username", process.env.USER_NAME_HEYGEN );
+      await page.type("#password", process.env.PASSWORD_HEYGEN);
 
       await page.evaluate(() => {
         document.querySelector(".css-iak95n").click();
@@ -75,9 +75,8 @@ export const runUploading = (title, speech) => {
         document.querySelector(".css-8zrzh9").click();
       });
 
+      await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
       const currentUrl = page.url();
-
-      //   await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
       //   await page.evaluate(() => {
       //     document.querySelector(".css-ec8bs4").click();
       //   });
