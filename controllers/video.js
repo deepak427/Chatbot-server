@@ -22,11 +22,9 @@ export const getVideoIds = async (req, res) => {
   try {
     const getAllIds = await videoIds.find();
     var allVideosDetails = [];
-    const videoIdsList = await automatedVideoId(2);
-    console.log(videoIdsList)
     for (let i = 0; i < getAllIds.length; i++) {
       if (getAllIds[i].status === 1) {
-        const videoInfo = await GetVideoHyegen(videoIdsList[i].videoId);
+        const videoInfo = await GetVideoHyegen(getAllIds[i].videoId);
         allVideosDetails.push([videoInfo.data.data, getAllIds[i].title, getAllIds[i].videoId]);
       } else if (getAllIds[i].status === 0) {
         allVideosDetails.push([

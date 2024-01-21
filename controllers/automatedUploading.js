@@ -1,7 +1,22 @@
 import { launch } from "puppeteer";
+import dotenv from "dotenv";
+
+dotenv.config();
 export const runUploading = (title, speech) => {
   return new Promise(async (resolve, reject) => {
-    const browser = await launch({ headless: "new" });
+    const browser = await launch({
+      headless: "new",
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
+    });
     const page = await browser.newPage();
     try {
       await page.setViewport({
@@ -61,10 +76,13 @@ export const runUploading = (title, speech) => {
         document.querySelector(".css-8zrzh9").click();
       });
 
-    //   await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
-    //   await page.evaluate(() => {
-    //     document.querySelector(".css-ec8bs4").click();
-    //   });
+      const currentUrl = await page.url();
+      console.log('Current Page URL:', currentUrl);
+
+      //   await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
+      //   await page.evaluate(() => {
+      //     document.querySelector(".css-ec8bs4").click();
+      //   });
 
       browser.close();
       return resolve({ message: "Successfully uploaded" });
