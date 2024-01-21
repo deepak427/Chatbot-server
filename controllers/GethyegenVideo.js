@@ -1,6 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import { runUploading } from "./automatedUploading.js";
+import videoIds from "../models/videoIds.js";
 
 dotenv.config();
 
@@ -31,7 +32,16 @@ export const GetVideoHyegen = async (videoId) => {
 
 export const uploadHyegenVideo = async (title, speech) => {
   try {
-    await runUploading(title, speech);
+    const videoUrl = await runUploading(title, speech);
+
+    const match = videoUrl.currentUrl.match(/\/create\/([a-zA-Z0-9]+)\?/);
+    const videoId = match && match[1];
+
+    await videoIds.findOneAndUpdate(
+      { title: title },
+      { $set: { status: 1, videoId: videoId } },
+      { new: true }
+    );
   } catch (error) {
     console.log(error.message);
   }
