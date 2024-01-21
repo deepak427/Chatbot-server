@@ -1,6 +1,5 @@
 import videoIds from "../models/videoIds.js";
 import { GetVideoHyegen, uploadHyegenVideo } from "./GethyegenVideo.js";
-import { automatedVideoId } from "./automatedVideoId.js";
 
 export const addVideoId = async (req, res) => {
   const { title, speech } = req.body;
