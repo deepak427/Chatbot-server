@@ -31,9 +31,7 @@ export const GetVideoHyegen = async (videoId) => {
 
 export const uploadHyegenVideo = async (title, speech) => {
   try {
-    const videoUrl = await runUploading(title, speech);
-
-    return videoId;
+    await runUploading(title, speech);
   } catch (error) {
     console.log(error.message);
   }

@@ -82,7 +82,7 @@ export const runUploading = (title, speech) => {
       const videoId = match && match[1];
 
       await videoIds.findOneAndUpdate(
-        { videoId: videoId },
+        { title: title },
         { $set: { status: 1, videoId: videoId } },
         { new: true }
       );

@@ -4,6 +4,12 @@ import { GetVideoHyegen, uploadHyegenVideo } from "./GethyegenVideo.js";
 export const addVideoId = async (req, res) => {
   const { title, speech } = req.body;
   try {
+    const existingTitle = await videoIds.findOne({ title });
+
+    if(existingTitle){
+      return res.status(404).json({message: "Title already exist"})
+    }
+    
     uploadHyegenVideo(title, speech);
 
     const newId = await videoIds.create({
