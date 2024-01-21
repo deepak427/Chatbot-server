@@ -20,7 +20,8 @@ export const addVideoId = async (req, res) => {
 
 export const getVideoIds = async (req, res) => {
   try {
-    const getAllIds = await videoIds.find();
+    var getAllIds = await videoIds.find();
+    getAllIds =getAllIds.reverse()
     var allVideosDetails = [];
     for (let i = 0; i < getAllIds.length; i++) {
       if (getAllIds[i].status === 1) {
