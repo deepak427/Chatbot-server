@@ -1,6 +1,5 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import twilio from "twilio";
 import { runUploading } from "./automatedUploading.js";
 
 dotenv.config();

@@ -24,23 +24,23 @@ export const getVideoIds = async (req, res) => {
     var allVideosDetails = [];
     const videoIdsList = await automatedVideoId(2);
     console.log(videoIdsList)
-    // for (let i = 0; i < getAllIds.length; i++) {
-    //   if (getAllIds[i].status === 1) {
-    //     const videoInfo = await GetVideoHyegen(videoIdsList[i].videoId);
-    //     allVideosDetails.push([videoInfo.data.data, getAllIds[i].title, getAllIds[i].videoId]);
-    //   } else if (getAllIds[i].status === 0) {
-    //     allVideosDetails.push([
-    //       {
-    //         status: "",
-    //         video_url: "",
-    //         thumbnail_url: "",
-    //       },
-    //       getAllIds[i].title,
-    //     ]);
-    //   } else {
-    //   }
-    // }
-    res.status(200).json(videoIdsList);
+    for (let i = 0; i < getAllIds.length; i++) {
+      if (getAllIds[i].status === 1) {
+        const videoInfo = await GetVideoHyegen(videoIdsList[i].videoId);
+        allVideosDetails.push([videoInfo.data.data, getAllIds[i].title, getAllIds[i].videoId]);
+      } else if (getAllIds[i].status === 0) {
+        allVideosDetails.push([
+          {
+            status: "",
+            video_url: "",
+            thumbnail_url: "",
+          },
+          getAllIds[i].title,
+        ]);
+      } else {
+      }
+    }
+    res.status(200).json(allVideosDetails);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

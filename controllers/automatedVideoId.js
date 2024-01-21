@@ -1,9 +1,24 @@
-import { launch } from "puppeteer";
+import puppeteer, { executablePath, launch } from "puppeteer";
 import clipboardy from "clipboardy";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const automatedVideoId = (videos) => {
   return new Promise(async (resolve, reject) => {
-    const browser = await launch({ headless: false });
+    const browser = await launch({
+      headless: false,
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
+    });
     const page = await browser.newPage();
     try {
       await page.setViewport({
@@ -47,16 +62,16 @@ export const automatedVideoId = (videos) => {
         const clipboardContent = clipboardy.readSync();
 
         videoIds.push(clipboardContent);
-        console.log(clipboardContent)
+        console.log(clipboardContent);
 
         await page.goBack();
       }
 
-      await browser.close();
       resolve({ videoIds });
     } catch (e) {
-      browser.close();
       reject(e);
+    } finally {
+      await browser.close();
     }
   });
 };
