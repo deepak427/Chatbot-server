@@ -29,9 +29,9 @@ export const GetVideoHyegen = async (videoId) => {
   }
 };
 
-export const uploadHyegenVideo =  () => {
+export const uploadHyegenVideo =  (title, speech) => {
   try {
-    runUploading();
+    runUploading(title, speech);
   } catch (error) {
     console.log(error.message);
   }

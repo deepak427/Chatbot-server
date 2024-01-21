@@ -76,7 +76,7 @@ export const runUploading = (title, speech) => {
         document.querySelector(".css-8zrzh9").click();
       });
 
-      const currentUrl = await page.url();
+      const currentUrl = page.url();
       console.log('Current Page URL:', currentUrl);
 
       //   await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
