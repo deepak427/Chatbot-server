@@ -32,7 +32,7 @@ export const GetVideoHyegen = async (videoId) => {
 export const uploadHyegenVideo = async (title, speech) => {
   try {
     const videoUrl = await runUploading(title, speech);
-    const match = videoUrl.match(/\/create\/([a-zA-Z0-9]+)\?/);
+    const match = videoUrl.currentUrl.match(/\/create\/([a-zA-Z0-9]+)\?/);
 
     const videoId = match && match[1];
     return videoId;
