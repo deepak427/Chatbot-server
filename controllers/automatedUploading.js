@@ -84,7 +84,7 @@ export const runUploading = (title, speech) => {
       //   });
 
       browser.close();
-      return resolve({ message: "Successfully uploaded" });
+      return resolve({ currentUrl });
     } catch (e) {
       return reject(e);
     }
