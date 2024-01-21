@@ -1,10 +1,10 @@
-import { launch } from "puppeteer";
+import puppeteer from "puppeteer";
 import dotenv from "dotenv";
 
 dotenv.config();
 export const runUploading = (title, speech) => {
   return new Promise(async (resolve, reject) => {
-    const browser = await launch({
+    const browser = await puppeteer.launch({
       headless: "new",
       args: [
         "--disable-setuid-sandbox",
