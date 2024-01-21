@@ -7,7 +7,7 @@ dotenv.config();
 export const automatedVideoId = (videos) => {
   return new Promise(async (resolve, reject) => {
     const browser = await launch({
-      headless: false,
+      headless: "new",
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
