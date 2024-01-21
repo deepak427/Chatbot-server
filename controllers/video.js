@@ -4,12 +4,11 @@ import { GetVideoHyegen, uploadHyegenVideo } from "./GethyegenVideo.js";
 export const addVideoId = async (req, res) => {
   const { title, speech } = req.body;
   try {
-    const videoId = await uploadHyegenVideo(title, speech);
+    uploadHyegenVideo(title, speech);
 
     const newId = await videoIds.create({
       title,
       speech,
-      videoId,
     });
 
     res.status(200).json({ result: newId });
@@ -21,15 +20,20 @@ export const addVideoId = async (req, res) => {
 export const getVideoIds = async (req, res) => {
   try {
     var getAllIds = await videoIds.find();
-    getAllIds =getAllIds.reverse()
+    getAllIds = getAllIds.reverse();
     var allVideosDetails = [];
     for (let i = 0; i < getAllIds.length; i++) {
-      if (getAllIds[i].status === 1) {
+      if (getAllIds[i].status === 1 ) {
         const videoInfo = await GetVideoHyegen(getAllIds[i].videoId);
+        allVideosDetails.push([videoInfo.data.data, getAllIds[i].title, getAllIds[i].videoId]);
+      } else if (getAllIds[i].status === 0) {
         allVideosDetails.push([
-          videoInfo.data.data,
+          {
+            status: "",
+            video_url: "",
+            thumbnail_url: "",
+          },
           getAllIds[i].title,
-          getAllIds[i].videoId,
         ]);
       } else {
       }
@@ -53,7 +57,7 @@ export const hideVideo = async (req, res) => {
       return res.status(404).json({ error: "Video not found" });
     }
 
-    return res.json({ message: "Successful" });
+    return res.json({message: "Successful"});
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

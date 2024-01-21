@@ -1,5 +1,6 @@
 import { executablePath, launch } from "puppeteer";
 import dotenv from "dotenv";
+import videoIds from "../models/videoIds.js";
 
 dotenv.config();
 export const runUploading = (title, speech) => {
@@ -76,6 +77,15 @@ export const runUploading = (title, speech) => {
       });
 
       const currentUrl = page.url();
+
+      const match = currentUrl.match(/\/create\/([a-zA-Z0-9]+)\?/);
+      const videoId = match && match[1];
+
+      await videoIds.findOneAndUpdate(
+        { videoId: videoId },
+        { $set: { status: 1, videoId: videoId } },
+        { new: true }
+      );
 
       //   await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
       //   await page.evaluate(() => {
