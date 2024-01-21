@@ -16,7 +16,7 @@ export const runUploading = (title, speech) => {
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : executablePath(),
       protocolTimeout: 36000000,
-      timeout: 36000000
+      timeout: 36000000,
     });
     const page = await browser.newPage();
     try {
@@ -73,9 +73,11 @@ export const runUploading = (title, speech) => {
         inputarea.value = "";
       });
 
-      await page.type(".css-l3f8vc", speech);
+      await page.type(".css-l3f8vc", speech, { delay: 50 });
 
-      await page.type(".css-1etqo8o-title-input-text-title-input-only", title);
+      await page.type(".css-1etqo8o-title-input-text-title-input-only", title, {
+        delay: 50,
+      });
 
       await page.keyboard.press("Enter");
 
