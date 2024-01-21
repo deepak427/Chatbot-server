@@ -20,8 +20,8 @@ export const runUploading = (title, speech) => {
     const page = await browser.newPage();
     try {
       await page.setViewport({
-        width: 1200,
-        height: 800,
+        width: 1920,
+        height: 1080,
       });
 
       await page.goto("https://app.heygen.com/");
