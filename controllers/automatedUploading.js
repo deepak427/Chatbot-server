@@ -84,9 +84,9 @@ export const runUploading = (title, speech) => {
 
       await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
       const currentUrl = page.url();
-      //   await page.evaluate(() => {
-      //     document.querySelector(".css-ec8bs4").click();
-      //   });
+        await page.evaluate(() => {
+          document.querySelector(".css-ec8bs4").click();
+        });
 
       browser.close();
       return resolve({ currentUrl });
