@@ -92,6 +92,8 @@ export const runUploading = (title, speech) => {
         document.querySelector(".css-ec8bs4").click();
       });
 
+      await page.waitForSelector(".css-1s0wd3s");
+
       browser.close();
       return resolve({ currentUrl });
     } catch (e) {
