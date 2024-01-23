@@ -15,12 +15,14 @@ export const runUploading = (title, speech) => {
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : executablePath(),
+      protocolTimeout: 36000000,
+      timeout: 36000000,
     });
     const page = await browser.newPage();
     try {
       await page.setViewport({
-        width: 1200,
-        height: 800,
+        width: 1366,
+        height: 768,
       });
 
       await page.goto("https://app.heygen.com/");
@@ -31,7 +33,7 @@ export const runUploading = (title, speech) => {
         await page.waitForSelector(".css-iak95n"),
       ]);
 
-      await page.type("#username", process.env.USER_NAME_HEYGEN );
+      await page.type("#username", process.env.USER_NAME_HEYGEN);
       await page.type("#password", process.env.PASSWORD_HEYGEN);
 
       await page.evaluate(() => {
@@ -44,9 +46,16 @@ export const runUploading = (title, speech) => {
       });
 
       await page.waitForSelector(".css-wku58s");
-      await page.evaluate(() => {
-        document.querySelector(".css-wku58s").click();
-      });
+
+      const elements = await page.$$(".css-wku58s");
+
+      if (elements.length > 0) {
+        const randomIndex = Math.floor(Math.random() * elements.length);
+
+        await elements[randomIndex].click();
+      } else {
+        console.log("No elements found with the specified selector.");
+      }
 
       await Promise.all([
         await page.waitForSelector(
@@ -64,9 +73,11 @@ export const runUploading = (title, speech) => {
         inputarea.value = "";
       });
 
-      await page.type(".css-l3f8vc", speech);
+      await page.type(".css-l3f8vc", speech, { delay: 50 });
 
-      await page.type(".css-1etqo8o-title-input-text-title-input-only", title);
+      await page.type(".css-1etqo8o-title-input-text-title-input-only", title, {
+        delay: 50,
+      });
 
       await page.keyboard.press("Enter");
 
@@ -77,9 +88,11 @@ export const runUploading = (title, speech) => {
 
       await page.waitForSelector(".css-ec8bs4", { timeout: 36000000 });
       const currentUrl = page.url();
-      //   await page.evaluate(() => {
-      //     document.querySelector(".css-ec8bs4").click();
-      //   });
+      await page.evaluate(() => {
+        document.querySelector(".css-ec8bs4").click();
+      });
+
+      await page.waitForSelector(".css-1s0wd3s");
 
       browser.close();
       return resolve({ currentUrl });
